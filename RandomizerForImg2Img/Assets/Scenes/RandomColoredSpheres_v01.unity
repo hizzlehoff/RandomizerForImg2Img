@@ -431,7 +431,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -13}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -686,8 +686,8 @@ MonoBehaviour:
   gradientQuad: {fileID: 1536900717}
   numberOfShapes: 75
   minSize: 0.5
-  maxSize: 2.5
-  boundingBoxSize: {x: 2.75, y: 10, z: 3}
+  maxSize: 3
+  boundingBoxSize: {x: 2.75, y: 12, z: 3}
   yOffset: -2
   yOffsetLights: 3
   lightTransforms:
@@ -698,7 +698,9 @@ MonoBehaviour:
   maxLightRadius: 5
   minLightIntensity: 0.33
   maxLightIntensity: 1.5
-  numColors: 6
+  numColors: 4
+  skinColor: {r: 0.6509434, g: 0.5715342, b: 0.4206568, a: 0}
+  skinColorHueRange: 0.4
 --- !u!114 &1558370146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,8 +714,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveToDisk: 0
-  filePath: E:\Inferencing (33 gb)\_My Models - Sort\UnityRandomizer1_
-  filePrefix: 6
+  filePath: H:\Projects (31)\Inferencing (31)\_My Models (6)\UnityRandomizer1
+  filePrefix: 04_
 --- !u!1 &1885409774
 GameObject:
   m_ObjectHideFlags: 0

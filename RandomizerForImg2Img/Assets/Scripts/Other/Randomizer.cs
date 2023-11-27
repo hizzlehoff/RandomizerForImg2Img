@@ -29,6 +29,11 @@ public class Randomizer : MonoBehaviour
 
     int changeColors = 0;
 
+    public Color skinColor;
+    public float skinColorHueRange = 0.1f;
+
+    FrameCapture frameCapture;
+
     void Start()
     {
         colors = new Color[numColors];
@@ -36,6 +41,8 @@ public class Randomizer : MonoBehaviour
         Application.targetFrameRate = framerate;
         materials.Add(gradientQuad.sharedMaterial);
         RandomizeColors();
+
+        frameCapture = GetComponent<FrameCapture>();
     }
 
     private void Update()
@@ -49,6 +56,8 @@ public class Randomizer : MonoBehaviour
         RemoveShapes();
         SpawnShapes();
         ChangeLigths();
+
+        if (frameCapture) frameCapture.SaveFrame();
     }
 
     void RandomizeColors()
@@ -65,37 +74,20 @@ public class Randomizer : MonoBehaviour
         }
 
         // Objects
-        for (int i = 0; i < numColors; i++) {
-            colors[i] = Random.ColorHSV();
+        colors = new Color[numColors];
+        for (int i = 0; i < numColors - 1; i++) {
+            colors[i] = Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(.2f, .45f), Random.Range(.4f, .8f));
         }
+
+        float h, s, v;
+        Color.RGBToHSV(skinColor, out h, out s, out v);
+        colors[colors.Length - 1] = Color.HSVToRGB(h + Random.Range(-skinColorHueRange, skinColorHueRange), s, v);
     }
 
     void SpawnShapes()
     {
-
-        for (int i = 0; i < numberOfShapes; i++)
-        {
-            GameObject shape;
-
-            switch (Random.Range(0, 4))
-            {
-                case 0:
-                    shape = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    break;
-                case 1:
-                    shape = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                    break;
-                case 2:
-                    shape = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                    break;
-                case 3:
-                    shape = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    break;
-                default:
-                    shape = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    break;
-            }
-
+        for (int i = 0; i < numberOfShapes; i++) {
+            GameObject shape = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             shape.transform.SetParent(transform);
 
             // Randomize rotation
@@ -114,28 +106,22 @@ public class Randomizer : MonoBehaviour
 
             // Randomize size
             if (index > 2) {
-                float randomSizeX = Random.Range(minSize + 0.25f, maxSize + 0.25f);
-                float randomSizeY = Random.Range(minSize + 0.25f, maxSize + 0.25f);
-                float randomSizeZ = Random.Range(minSize + 0.25f, maxSize + 0.25f);
-                shape.transform.localScale = new Vector3(randomSizeX, randomSizeY, randomSizeZ);
+                float size = Random.Range(minSize + 0.25f, maxSize + 0.25f);
+                shape.transform.localScale = new Vector3(size, size, size);
             }
             else {
                 float randomSize = Random.Range(minSize, maxSize);
                 shape.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
             }
 
-
-            material.color = colors[Mathf.Clamp((int)index % numColors, 0, numColors-1)];  // Use modulo to cycle through the three colors
+            material.color = colors[Mathf.Clamp((int)index % numColors, 0, numColors-1)];  // Use modulo to cycle through the three colors.
 
             material.SetFloat("_Metallic", 0.0f);
             material.SetFloat("_Glossiness", 0.175f);
 
             shape.GetComponent<Renderer>().material = material;
-
-
         }
     }
-
 
     void ChangeLigths()
     {
@@ -160,8 +146,7 @@ public class Randomizer : MonoBehaviour
     void RemoveShapes()
     {
         // Destroy all child objects
-        foreach (Transform child in transform)
-        {
+        foreach (Transform child in transform) {
             Destroy(child.gameObject);
         }
     }
