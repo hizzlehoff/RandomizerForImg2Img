@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dfba80227fc994c9ede47fce8ac461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  framerate: 10
+  framerate: 5
   gradientQuad: {fileID: 1536900717}
   numberOfShapes: 75
   minSize: 0.5
@@ -711,9 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27763ccdbda9d546ab168a274f4a815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameCapture: 1
-  triggeredByOtherMonobehaviour: 0
-  frameSkip: 1
+  saveToDisk: 0
   filePath: E:\Inferencing (33 gb)\_My Models - Sort\UnityRandomizer1_
   filePrefix: 6
 --- !u!1 &1885409774

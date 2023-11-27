@@ -8,3 +8,5 @@ It's an experiment to see if bulk image generation from random
 shapes can assist exploring visual ideas for games etc.
 
 ![Alt text](Output.gif?raw=true "Well, hello there.")
+
+Scenes use either: 768x480 or 480x768 for resolution.
